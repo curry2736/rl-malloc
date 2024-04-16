@@ -38,8 +38,8 @@ class BaseEnv():
         allocate = action[0]
         if allocate == 1:
             allocation_success = self.page.allocate(action[1], self.prev_request[1])
-            print(allocation_success)
             if not allocation_success:
+                print("failed alloc")
                 return self._get_state(self.prev_request), self.invalid_action_reward, False
             else:
                 self.request_stream.add_to_allocated_indices(action[1])

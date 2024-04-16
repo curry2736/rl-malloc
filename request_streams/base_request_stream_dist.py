@@ -25,7 +25,7 @@ class BaseRequestStreamDist(BaseRequestStream):
         self.allocated_indices.append(index)
     
     def remove_from_allocated_indices(self, index):
-        self.allocated_indices = self.allocated_indices[:index] + self.allocated_indices[index+1:]
+        self.allocated_indices.remove(index)
 
     def get_next_req(self):
         """
@@ -34,9 +34,10 @@ class BaseRequestStreamDist(BaseRequestStream):
         output:
             tuple(free_or_alloc: {0,1}, mem_addr_or_amt: int, new_traj: {0, 1})
         """
+        print("In get_next_req()")
         new_traj = False
         free_or_alloc = np.random.choice(np.array([0,1]), p=[self.free_prob, 1-self.free_prob])
-        print("free_or_alloc: ", free_or_alloc, "allocated_indices: ", self.allocated_indices)
+        print("    free_or_alloc: ", free_or_alloc, "allocated_indices: ", self.allocated_indices)
         if len(self.allocated_indices) <= 0:
             free_or_alloc = 1
         if free_or_alloc == 0:

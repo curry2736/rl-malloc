@@ -6,7 +6,8 @@ class SingleStateEnv(BaseEnv):
         super().__init__(allocator, invalid_action_reward, done_reward)
     
     def _get_state(self, rq):
-        print(f"Request contents - free_or_alloc: {rq[0]}, mem_addr_or_amt: {rq[1]}, int(new_traj): {rq[2]})")
+        print("in _get_state()")
+        print(f"    Request contents - free_or_alloc: {rq[0]}, mem_addr_or_amt: {rq[1]}, int(new_traj): {rq[2]})")
         st =  {"bitmap": self.page.bitmap[None,:],
                 "rq": np.array([rq[0], #free or alloc
                         rq[1],  #mem_addr_or_amt
