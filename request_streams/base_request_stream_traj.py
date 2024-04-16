@@ -1,8 +1,9 @@
 from request_streams.base_request_stream import BaseRequestStream
 import numpy as np
+from typing import List, Tuple
 
 class BaseRequestStreamTraj(BaseRequestStream):
-    def __init__(self, trajectories: list[list[tuple[int, int]]]):
+    def __init__(self, trajectories: List[List[Tuple[int, int]]]):
         """
         Initializes a BaseRequestStreamTraj object.
 
@@ -35,7 +36,7 @@ class BaseRequestStreamTraj(BaseRequestStream):
         
         free_or_alloc, mem_addr_or_amt = self.curr_trajectory[self.ptr_in_trajectory]
         self.ptr_in_trajectory += 1
-        return (free_or_alloc, mem_addr_or_amt, new_traj)
+        return (free_or_alloc, mem_addr_or_amt, int(new_traj))
     
     def _sample_request_trajectory(self):
         """

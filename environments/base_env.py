@@ -1,15 +1,20 @@
 from gym import Env, spaces
-from ..page import Page
-from ..request_streams.base_request_stream_traj import BaseRequestStreamTraj
+from page import Page
+from request_streams.base_request_stream_traj import BaseRequestStreamTraj
+from request_streams.base_request_stream_dist import BaseRequestStreamDist
 import numpy as np
 
 class BaseEnv():
-    def __init__(self, allocator="trajectory", invalid_action_reward=0, done_reward = -1000) -> None:
+    def __init__(self, allocator="dist", invalid_action_reward=0, done_reward = -1000) -> None:
         if allocator == "trajectory":
             self.request_stream_cls = BaseRequestStreamTraj
+        elif allocator == "dist":
+            self.request_stream_cls = BaseRequestStreamDist
         else:
             raise NotImplementedError()
         
+        print(self.request_stream_cls)
+
         #do not assign them until reset is called!
         self.invalid_action_reward = invalid_action_reward
         self.done_reward = done_reward
@@ -22,16 +27,26 @@ class BaseEnv():
 
     def reset(self):
         self.request_stream = self.request_stream_cls()
+        print("self.request_stream: ", self.request_stream)
         self.page = Page()
         first_rq = self.request_stream.get_next_req()
         self.prev_request = first_rq
         return self._get_state(first_rq), False
         
 
-    def step(self, action):
-        allocation_success = self.page.allocate(action)
-        if not allocation_success:
-            return self._get_state(self.prev_request), self.invalid_action_reward, False
+    def step(self, action): #action = (free_or_alloc, mem_addr_or_amt)
+        allocate = action[0]
+        if allocate == 1:
+            allocation_success = self.page.allocate(action[1], self.prev_request[1])
+            print(allocation_success)
+            if not allocation_success:
+                return self._get_state(self.prev_request), self.invalid_action_reward, False
+            else:
+                self.request_stream.add_to_allocated_indices(action[1])
+        else:
+            self.page.free(action[1])
+            self.request_stream.remove_from_allocated_indices(action[1])
+
         next_rq = self.request_stream.get_next_req()
         state = self._get_state(next_rq)
         done = next_rq[2] or ( next_rq[0] and not self.page.space_available(next_rq[1]))

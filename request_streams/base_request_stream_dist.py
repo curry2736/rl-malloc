@@ -1,9 +1,9 @@
 from request_streams.base_request_stream import BaseRequestStream
 import numpy as np
-
+from typing import List
 
 class BaseRequestStreamDist(BaseRequestStream):
-    def __init__(self, alloc_sizes: list[int], alloc_probs: list[float], free_prob: list[float]):
+    def __init__(self, alloc_sizes: List[int]=[1,2,3,4,50], alloc_probs: List[float] = [0.2,0.2,0.2,0.2,0.2], free_prob: float=0.4):
         """
         Initializes a BaseRequestStreamTraj object.
 
@@ -21,6 +21,12 @@ class BaseRequestStreamDist(BaseRequestStream):
         self.free_prob = free_prob
         self.allocated_indices = []
 
+    def add_to_allocated_indices(self, index):
+        self.allocated_indices.append(index)
+    
+    def remove_from_allocated_indices(self, index):
+        self.allocated_indices = self.allocated_indices[:index] + self.allocated_indices[index+1:]
+
     def get_next_req(self):
         """
         return the next allocation request
@@ -30,10 +36,11 @@ class BaseRequestStreamDist(BaseRequestStream):
         """
         new_traj = False
         free_or_alloc = np.random.choice(np.array([0,1]), p=[self.free_prob, 1-self.free_prob])
-        if free_or_alloc == 0 and self.allocated_indices:
+        print("free_or_alloc: ", free_or_alloc, "allocated_indices: ", self.allocated_indices)
+        if len(self.allocated_indices) <= 0:
+            free_or_alloc = 1
+        if free_or_alloc == 0:
             mem_addr_or_amt = np.random.choice(self.allocated_indices)
-            self.allocated_indices.remove(mem_addr_or_amt)
         else:
             mem_addr_or_amt = np.random.choice(self.alloc_sizes, p=self.alloc_probs)
-            self.allocated_indices.append(mem_addr_or_amt)
         return (free_or_alloc, mem_addr_or_amt, int(new_traj))

@@ -4,7 +4,7 @@ class WorstFitAllocator(BaseAllocator): #pick the free block with the largest am
     def __init__(self):
         super().__init__()
     
-    def handle_alloc_req(self, alloc_size:int):
+    def handle_alloc_req(self, pages: list, alloc_size:int):
         """
         handle the allocation request
         
@@ -15,7 +15,7 @@ class WorstFitAllocator(BaseAllocator): #pick the free block with the largest am
         """
         worst_fit_size = -1
         worst_fit_idxs = (-1, -1)
-        for i, page in enumerate(self.pages_in_use):
+        for i, page in enumerate(pages):
             free_list = page.free_list
             free_list_sorted = sorted(free_list, key=lambda x: x["size"], reverse=True)
 

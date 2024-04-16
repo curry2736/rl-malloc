@@ -4,7 +4,7 @@ class FirstFitAllocator(BaseAllocator):
     def __init__(self):
         super().__init__()
     
-    def handle_alloc_req(self, alloc_size:int):
+    def handle_alloc_req(self, pages: list, alloc_size:int):
         """
         handle the allocation request
         
@@ -13,8 +13,8 @@ class FirstFitAllocator(BaseAllocator):
         output:
             i, j: page index and block index within page
         """
-        for i, page in enumerate(self.pages_in_use):
-            print("Current page's free list: ", page.free_list)
+        for i, page in enumerate(pages):
+            print("Current page's free list: ", page.free_list, "Current page's allocated list: ", page.allocated_list)
             for j, block in enumerate(page.free_list):
                 if block["size"] >= alloc_size:
                     return i, block["idx"]
