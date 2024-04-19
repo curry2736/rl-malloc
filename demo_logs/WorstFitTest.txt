@@ -1,0 +1,52 @@
+initial bitmap:  [0 0 0 1 1 1 1 1 1 0 1 0 0 0 1 0]
+----------------------------------
+Request size:  ('a', 1)
+In handle_alloc_req(), Handling allocation request of size:  1
+Allocating at page 0, block 0
+Allocation result:  True
+Request size:  ('a', 2)
+In handle_alloc_req(), Handling allocation request of size:  2
+Allocating at page 0, block 1
+Allocation result:  True
+Request size:  ('a', 3)
+In handle_alloc_req(), Handling allocation request of size:  3
+Allocating at page 0, block 11
+Allocation result:  True
+Request size:  ('f', 1)
+Freeing block:  1
+Request size:  ('f', 0)
+Freeing block:  0
+Request size:  ('f', 11)
+Freeing block:  11
+----------------------------------
+[0 0 0 1 1 1 1 1 1 0 1 0 0 0 1 0]
+[{'idx': 0, 'size': 3}, {'idx': 9, 'size': 1}, {'idx': 11, 'size': 3}, {'idx': 15, 'size': 1}]
+{}
+initial bitmap:  [0 0 0 0 1 0 0 1 1 0 1 0 0 0 1 1]
+----------------------------------
+Request size:  ('a', 1)
+Allocating at page 0, block 9
+Allocation result:  True
+Request size:  ('a', 3)
+Allocating at page 0, block 11
+Allocation result:  True
+----------------------------------
+[0 0 0 0 1 0 0 1 1 1 1 1 1 1 1 1]
+[{'idx': 0, 'size': 4}, {'idx': 5, 'size': 2}]
+{9: 1, 11: 3}
+initial bitmap:  [0 0 0 0 1 0 0 1 1 0 1 0 0 0 1 1]
+----------------------------------
+Request size:  ('a', 1)
+Allocating at page 0, block 0
+Allocation result:  True
+Request size:  ('a', 3)
+Allocating at page 0, block 1
+Allocation result:  True
+----------------------------------
+[1 1 1 1 1 0 0 1 1 0 1 0 0 0 1 1]
+[{'idx': 5, 'size': 2}, {'idx': 9, 'size': 1}, {'idx': 11, 'size': 3}]
+<class 'request_streams.base_request_stream_dist.BaseRequestStreamDist'>
+self.request_stream:  AllocationRequestStream: BaseRequestStreamDist
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 50, int(new_traj): 0)
+dict_keys(['bitmap', 'rq', 'pages']) (1, 256) [ 1 50  0] [<page.Page object at 0x000001CF8E4B29A0>] False

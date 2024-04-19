@@ -2,18 +2,13 @@ from gym import Env, spaces
 from page import Page
 from request_streams.base_request_stream_traj import BaseRequestStreamTraj
 from request_streams.base_request_stream_dist import BaseRequestStreamDist
+from request_streams.ff_bad import FFBad
+
 import numpy as np
 
 class BaseEnv():
-    def __init__(self, allocator="dist", invalid_action_reward=0, done_reward = -1000) -> None:
-        if allocator == "trajectory":
-            self.request_stream_cls = BaseRequestStreamTraj
-        elif allocator == "dist":
-            self.request_stream_cls = BaseRequestStreamDist
-        else:
-            raise NotImplementedError()
+    def __init__(self, allocator="dist", invalid_action_reward=0, done_reward = 0, trajs=None, page_size=256) -> None:
         
-        print(self.request_stream_cls)
 
         #do not assign them until reset is called!
         self.invalid_action_reward = invalid_action_reward
@@ -21,14 +16,33 @@ class BaseEnv():
         self.page = None
         self.request_stream = None
         self.prev_request = None
+        self.trajs = trajs
+        self.page_size = page_size
+
+
+        self.allocator_kwargs = {}
+        if allocator == "trajectory":
+            self.request_stream_cls = BaseRequestStreamTraj
+            self.allocator_kwargs["trajectories"] = self.trajs
+        elif allocator == "dist":
+            self.request_stream_cls = BaseRequestStreamDist
+        elif allocator == "ff_bad":
+            self.request_stream_cls = FFBad
+            self.allocator_kwargs["page_size"] = self.page_size
+        else:
+            raise NotImplementedError()
+
+                
+        print(self.request_stream_cls)
+
 
     def _get_state(self, rq):
         NotImplementedError()
 
     def reset(self):
-        self.request_stream = self.request_stream_cls()
-        print("self.request_stream: ", self.request_stream)
-        self.page = Page()
+        self.request_stream = self.request_stream_cls(**self.allocator_kwargs)
+        #print("self.request_stream: ", self.request_stream)
+        self.page = Page(page_size=self.page_size)
         first_rq = self.request_stream.get_next_req()
         self.prev_request = first_rq
         return self._get_state(first_rq), False

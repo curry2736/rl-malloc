@@ -3,7 +3,7 @@ import numpy as np
 from typing import List, Tuple
 
 class BaseRequestStreamTraj(BaseRequestStream):
-    def __init__(self, trajectories: List[List[Tuple[int, int]]]):
+    def __init__(self, trajectories: List[List[Tuple[int, int]]], ): #create from a list of trajectories
         """
         Initializes a BaseRequestStreamTraj object.
 
@@ -19,6 +19,16 @@ class BaseRequestStreamTraj(BaseRequestStream):
         self.trajectories = trajectories
         self.curr_trajectory = None
         self.ptr_in_trajectory = 0
+
+    def create_trajectories(self, bad_for="first", length=1000, alloc_sizes=[1,2,3,4,50], free_prob=0.2, save=False):
+        assert bad_for in ["best", "first", "worst"]
+        traj = []
+        allocated_indices = set()
+        while len(traj) < length:
+            break
+            
+            
+
 
     def get_next_req(self):
         """

@@ -21,3 +21,9 @@ class BaseRequestStream:
             return the distribution of allocation requests
             """
             raise NotImplementedError()
+
+    def add_to_allocated_indices(self, index):
+        pass
+
+    def remove_from_allocated_indices(self, index):
+        pass

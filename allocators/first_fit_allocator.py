@@ -13,7 +13,7 @@ class FirstFitAllocator(BaseAllocator):
         output:
             i, j: page index and block index within page
         """
-        print("In handle_alloc_req(), Handling allocation request of size: ", alloc_size)
+        #print("In handle_alloc_req(), Handling allocation request of size: ", alloc_size)
         for i, page in enumerate(pages):
             #print("    Current page's free list: ", page.free_list, "Current page's allocated list: ", page.allocated_list)
             for j, block in enumerate(page.free_list):

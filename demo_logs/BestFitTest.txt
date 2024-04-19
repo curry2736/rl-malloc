@@ -1,0 +1,276 @@
+initial bitmap:  [0 0 0 1 1 1 1 1 1 0 1 0 0 0 1 0]
+----------------------------------
+Request size:  ('a', 1)
+In handle_alloc_req(), Handling allocation request of size:  1
+Allocating at page 0, block 0
+Allocation result:  True
+Request size:  ('a', 2)
+In handle_alloc_req(), Handling allocation request of size:  2
+Allocating at page 0, block 1
+Allocation result:  True
+Request size:  ('a', 3)
+In handle_alloc_req(), Handling allocation request of size:  3
+Allocating at page 0, block 11
+Allocation result:  True
+Request size:  ('f', 1)
+Freeing block:  1
+Request size:  ('f', 0)
+Freeing block:  0
+Request size:  ('f', 11)
+Freeing block:  11
+----------------------------------
+[0 0 0 1 1 1 1 1 1 0 1 0 0 0 1 0]
+[{'idx': 0, 'size': 3}, {'idx': 9, 'size': 1}, {'idx': 11, 'size': 3}, {'idx': 15, 'size': 1}]
+{}
+initial bitmap:  [0 0 0 0 1 0 0 1 1 0 1 0 0 0 1 1]
+----------------------------------
+Request size:  ('a', 1)
+Allocating at page 0, block 9
+Allocation result:  True
+Request size:  ('a', 3)
+Allocating at page 0, block 11
+Allocation result:  True
+----------------------------------
+[0 0 0 0 1 0 0 1 1 1 1 1 1 1 1 1]
+[{'idx': 0, 'size': 4}, {'idx': 5, 'size': 2}]
+{9: 1, 11: 3}
+initial bitmap:  [0 0 0 0 1 0 0 1 1 0 1 0 0 0 1 1]
+----------------------------------
+Request size:  ('a', 1)
+Allocating at page 0, block 0
+Allocation result:  True
+Request size:  ('a', 3)
+Allocating at page 0, block 1
+Allocation result:  True
+----------------------------------
+[1 1 1 1 1 0 0 1 1 0 1 0 0 0 1 1]
+[{'idx': 5, 'size': 2}, {'idx': 9, 'size': 1}, {'idx': 11, 'size': 3}]
+<class 'request_streams.base_request_stream_dist.BaseRequestStreamDist'>
+self.request_stream:  AllocationRequestStream: BaseRequestStreamDist
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 2, int(new_traj): 0)
+dict_keys(['bitmap', 'rq', 'pages']) (1, 256) [1 2 0] [<page.Page object at 0x000001CF8E4B22B0>] False
+In handle_alloc_req(), Handling allocation request of size:  2
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 3, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 2, 'size': 254}] Current page's resulting allocated list:  {0: 2}
+----------------------------------
+In handle_alloc_req(), Handling allocation request of size:  3
+in _get_state()
+    Next state request contents - free_or_alloc: 0, mem_addr_or_amt: 0, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 5, 'size': 251}] Current page's resulting allocated list:  {0: 2, 2: 3}
+----------------------------------
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 2, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 0, 'size': 2}, {'idx': 5, 'size': 251}] Current page's resulting allocated list:  {2: 3}
+----------------------------------
+In handle_alloc_req(), Handling allocation request of size:  2
+in _get_state()
+    Next state request contents - free_or_alloc: 0, mem_addr_or_amt: 0, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 5, 'size': 251}] Current page's resulting allocated list:  {2: 3, 0: 2}
+----------------------------------
+in _get_state()
+    Next state request contents - free_or_alloc: 0, mem_addr_or_amt: 2, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 0, 'size': 2}, {'idx': 5, 'size': 251}] Current page's resulting allocated list:  {2: 3}
+----------------------------------
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 1, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 0, 'size': 256}] Current page's resulting allocated list:  {}
+----------------------------------
+In handle_alloc_req(), Handling allocation request of size:  1
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 3, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 1, 'size': 255}] Current page's resulting allocated list:  {0: 1}
+----------------------------------
+In handle_alloc_req(), Handling allocation request of size:  3
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 4, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 4, 'size': 252}] Current page's resulting allocated list:  {0: 1, 1: 3}
+----------------------------------
+In handle_alloc_req(), Handling allocation request of size:  4
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 2, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 8, 'size': 248}] Current page's resulting allocated list:  {0: 1, 1: 3, 4: 4}
+----------------------------------
+In handle_alloc_req(), Handling allocation request of size:  2
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 50, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 10, 'size': 246}] Current page's resulting allocated list:  {0: 1, 1: 3, 4: 4, 8: 2}
+----------------------------------
+In handle_alloc_req(), Handling allocation request of size:  50
+in _get_state()
+    Next state request contents - free_or_alloc: 0, mem_addr_or_amt: 10, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 60, 'size': 196}] Current page's resulting allocated list:  {0: 1, 1: 3, 4: 4, 8: 2, 10: 50}
+----------------------------------
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 1, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 10, 'size': 246}] Current page's resulting allocated list:  {0: 1, 1: 3, 4: 4, 8: 2}
+----------------------------------
+In handle_alloc_req(), Handling allocation request of size:  1
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 4, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 11, 'size': 245}] Current page's resulting allocated list:  {0: 1, 1: 3, 4: 4, 8: 2, 10: 1}
+----------------------------------
+In handle_alloc_req(), Handling allocation request of size:  4
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 4, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 15, 'size': 241}] Current page's resulting allocated list:  {0: 1, 1: 3, 4: 4, 8: 2, 10: 1, 11: 4}
+----------------------------------
+In handle_alloc_req(), Handling allocation request of size:  4
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 2, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 19, 'size': 237}] Current page's resulting allocated list:  {0: 1, 1: 3, 4: 4, 8: 2, 10: 1, 11: 4, 15: 4}
+----------------------------------
+In handle_alloc_req(), Handling allocation request of size:  2
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 1, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 21, 'size': 235}] Current page's resulting allocated list:  {0: 1, 1: 3, 4: 4, 8: 2, 10: 1, 11: 4, 15: 4, 19: 2}
+----------------------------------
+In handle_alloc_req(), Handling allocation request of size:  1
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 2, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 22, 'size': 234}] Current page's resulting allocated list:  {0: 1, 1: 3, 4: 4, 8: 2, 10: 1, 11: 4, 15: 4, 19: 2, 21: 1}
+----------------------------------
+In handle_alloc_req(), Handling allocation request of size:  2
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 50, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 24, 'size': 232}] Current page's resulting allocated list:  {0: 1, 1: 3, 4: 4, 8: 2, 10: 1, 11: 4, 15: 4, 19: 2, 21: 1, 22: 2}
+----------------------------------
+In handle_alloc_req(), Handling allocation request of size:  50
+in _get_state()
+    Next state request contents - free_or_alloc: 0, mem_addr_or_amt: 10, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 74, 'size': 182}] Current page's resulting allocated list:  {0: 1, 1: 3, 4: 4, 8: 2, 10: 1, 11: 4, 15: 4, 19: 2, 21: 1, 22: 2, 24: 50}
+----------------------------------
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 50, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 10, 'size': 1}, {'idx': 74, 'size': 182}] Current page's resulting allocated list:  {0: 1, 1: 3, 4: 4, 8: 2, 11: 4, 15: 4, 19: 2, 21: 1, 22: 2, 24: 50}
+----------------------------------
+In handle_alloc_req(), Handling allocation request of size:  50
+in _get_state()
+    Next state request contents - free_or_alloc: 0, mem_addr_or_amt: 4, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 10, 'size': 1}, {'idx': 124, 'size': 132}] Current page's resulting allocated list:  {0: 1, 1: 3, 4: 4, 8: 2, 11: 4, 15: 4, 19: 2, 21: 1, 22: 2, 24: 50, 74: 50}
+----------------------------------
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 4, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 4, 'size': 4}, {'idx': 10, 'size': 1}, {'idx': 124, 'size': 132}] Current page's resulting allocated list:  {0: 1, 1: 3, 8: 2, 11: 4, 15: 4, 19: 2, 21: 1, 22: 2, 24: 50, 74: 50}
+----------------------------------
+In handle_alloc_req(), Handling allocation request of size:  4
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 4, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 10, 'size': 1}, {'idx': 124, 'size': 132}] Current page's resulting allocated list:  {0: 1, 1: 3, 8: 2, 11: 4, 15: 4, 19: 2, 21: 1, 22: 2, 24: 50, 74: 50, 4: 4}
+----------------------------------
+In handle_alloc_req(), Handling allocation request of size:  4
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 3, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 10, 'size': 1}, {'idx': 128, 'size': 128}] Current page's resulting allocated list:  {0: 1, 1: 3, 8: 2, 11: 4, 15: 4, 19: 2, 21: 1, 22: 2, 24: 50, 74: 50, 4: 4, 124: 4}
+----------------------------------
+In handle_alloc_req(), Handling allocation request of size:  3
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 2, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 10, 'size': 1}, {'idx': 131, 'size': 125}] Current page's resulting allocated list:  {0: 1, 1: 3, 8: 2, 11: 4, 15: 4, 19: 2, 21: 1, 22: 2, 24: 50, 74: 50, 4: 4, 124: 4, 128: 3}
+----------------------------------
+In handle_alloc_req(), Handling allocation request of size:  2
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 1, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 10, 'size': 1}, {'idx': 133, 'size': 123}] Current page's resulting allocated list:  {0: 1, 1: 3, 8: 2, 11: 4, 15: 4, 19: 2, 21: 1, 22: 2, 24: 50, 74: 50, 4: 4, 124: 4, 128: 3, 131: 2}
+----------------------------------
+In handle_alloc_req(), Handling allocation request of size:  1
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 1, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 133, 'size': 123}] Current page's resulting allocated list:  {0: 1, 1: 3, 8: 2, 11: 4, 15: 4, 19: 2, 21: 1, 22: 2, 24: 50, 74: 50, 4: 4, 124: 4, 128: 3, 131: 2, 10: 1}
+----------------------------------
+In handle_alloc_req(), Handling allocation request of size:  1
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 4, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 134, 'size': 122}] Current page's resulting allocated list:  {0: 1, 1: 3, 8: 2, 11: 4, 15: 4, 19: 2, 21: 1, 22: 2, 24: 50, 74: 50, 4: 4, 124: 4, 128: 3, 131: 2, 10: 1, 133: 1}
+----------------------------------
+In handle_alloc_req(), Handling allocation request of size:  4
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 3, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 138, 'size': 118}] Current page's resulting allocated list:  {0: 1, 1: 3, 8: 2, 11: 4, 15: 4, 19: 2, 21: 1, 22: 2, 24: 50, 74: 50, 4: 4, 124: 4, 128: 3, 131: 2, 10: 1, 133: 1, 134: 4}
+----------------------------------
+In handle_alloc_req(), Handling allocation request of size:  3
+in _get_state()
+    Next state request contents - free_or_alloc: 0, mem_addr_or_amt: 15, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 141, 'size': 115}] Current page's resulting allocated list:  {0: 1, 1: 3, 8: 2, 11: 4, 15: 4, 19: 2, 21: 1, 22: 2, 24: 50, 74: 50, 4: 4, 124: 4, 128: 3, 131: 2, 10: 1, 133: 1, 134: 4, 138: 3}
+----------------------------------
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 3, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 15, 'size': 4}, {'idx': 141, 'size': 115}] Current page's resulting allocated list:  {0: 1, 1: 3, 8: 2, 11: 4, 19: 2, 21: 1, 22: 2, 24: 50, 74: 50, 4: 4, 124: 4, 128: 3, 131: 2, 10: 1, 133: 1, 134: 4, 138: 3}
+----------------------------------
+In handle_alloc_req(), Handling allocation request of size:  3
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 1, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 18, 'size': 1}, {'idx': 141, 'size': 115}] Current page's resulting allocated list:  {0: 1, 1: 3, 8: 2, 11: 4, 19: 2, 21: 1, 22: 2, 24: 50, 74: 50, 4: 4, 124: 4, 128: 3, 131: 2, 10: 1, 133: 1, 134: 4, 138: 3, 15: 3}
+----------------------------------
+In handle_alloc_req(), Handling allocation request of size:  1
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 4, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 141, 'size': 115}] Current page's resulting allocated list:  {0: 1, 1: 3, 8: 2, 11: 4, 19: 2, 21: 1, 22: 2, 24: 50, 74: 50, 4: 4, 124: 4, 128: 3, 131: 2, 10: 1, 133: 1, 134: 4, 138: 3, 15: 3, 18: 1}
+----------------------------------
+In handle_alloc_req(), Handling allocation request of size:  4
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 4, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 145, 'size': 111}] Current page's resulting allocated list:  {0: 1, 1: 3, 8: 2, 11: 4, 19: 2, 21: 1, 22: 2, 24: 50, 74: 50, 4: 4, 124: 4, 128: 3, 131: 2, 10: 1, 133: 1, 134: 4, 138: 3, 15: 3, 18: 1, 141: 4}
+----------------------------------
+In handle_alloc_req(), Handling allocation request of size:  4
+in _get_state()
+    Next state request contents - free_or_alloc: 0, mem_addr_or_amt: 128, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 149, 'size': 107}] Current page's resulting allocated list:  {0: 1, 1: 3, 8: 2, 11: 4, 19: 2, 21: 1, 22: 2, 24: 50, 74: 50, 4: 4, 124: 4, 128: 3, 131: 2, 10: 1, 133: 1, 134: 4, 138: 3, 15: 3, 18: 1, 141: 4, 145: 4}
+----------------------------------
+in _get_state()
+    Next state request contents - free_or_alloc: 0, mem_addr_or_amt: 18, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 128, 'size': 3}, {'idx': 149, 'size': 107}] Current page's resulting allocated list:  {0: 1, 1: 3, 8: 2, 11: 4, 19: 2, 21: 1, 22: 2, 24: 50, 74: 50, 4: 4, 124: 4, 131: 2, 10: 1, 133: 1, 134: 4, 138: 3, 15: 3, 18: 1, 141: 4, 145: 4}
+----------------------------------
+in _get_state()
+    Next state request contents - free_or_alloc: 0, mem_addr_or_amt: 134, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 18, 'size': 1}, {'idx': 128, 'size': 3}, {'idx': 149, 'size': 107}] Current page's resulting allocated list:  {0: 1, 1: 3, 8: 2, 11: 4, 19: 2, 21: 1, 22: 2, 24: 50, 74: 50, 4: 4, 124: 4, 131: 2, 10: 1, 133: 1, 134: 4, 138: 3, 15: 3, 141: 4, 145: 4}
+----------------------------------
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 4, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 18, 'size': 1}, {'idx': 128, 'size': 3}, {'idx': 134, 'size': 4}, {'idx': 149, 'size': 107}] Current page's resulting allocated list:  {0: 1, 1: 3, 8: 2, 11: 4, 19: 2, 21: 1, 22: 2, 24: 50, 74: 50, 4: 4, 124: 4, 131: 2, 10: 1, 133: 1, 138: 3, 15: 3, 141: 4, 145: 4}
+----------------------------------
+In handle_alloc_req(), Handling allocation request of size:  4
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 1, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 18, 'size': 1}, {'idx': 128, 'size': 3}, {'idx': 149, 'size': 107}] Current page's resulting allocated list:  {0: 1, 1: 3, 8: 2, 11: 4, 19: 2, 21: 1, 22: 2, 24: 50, 74: 50, 4: 4, 124: 4, 131: 2, 10: 1, 133: 1, 138: 3, 15: 3, 141: 4, 145: 4, 134: 4}
+----------------------------------
+In handle_alloc_req(), Handling allocation request of size:  1
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 50, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 128, 'size': 3}, {'idx': 149, 'size': 107}] Current page's resulting allocated list:  {0: 1, 1: 3, 8: 2, 11: 4, 19: 2, 21: 1, 22: 2, 24: 50, 74: 50, 4: 4, 124: 4, 131: 2, 10: 1, 133: 1, 138: 3, 15: 3, 141: 4, 145: 4, 134: 4, 18: 1}
+----------------------------------
+In handle_alloc_req(), Handling allocation request of size:  50
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 3, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 128, 'size': 3}, {'idx': 199, 'size': 57}] Current page's resulting allocated list:  {0: 1, 1: 3, 8: 2, 11: 4, 19: 2, 21: 1, 22: 2, 24: 50, 74: 50, 4: 4, 124: 4, 131: 2, 10: 1, 133: 1, 138: 3, 15: 3, 141: 4, 145: 4, 134: 4, 18: 1, 149: 50}
+----------------------------------
+In handle_alloc_req(), Handling allocation request of size:  3
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 50, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 199, 'size': 57}] Current page's resulting allocated list:  {0: 1, 1: 3, 8: 2, 11: 4, 19: 2, 21: 1, 22: 2, 24: 50, 74: 50, 4: 4, 124: 4, 131: 2, 10: 1, 133: 1, 138: 3, 15: 3, 141: 4, 145: 4, 134: 4, 18: 1, 149: 50, 128: 3}
+----------------------------------
+In handle_alloc_req(), Handling allocation request of size:  50
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 1, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 249, 'size': 7}] Current page's resulting allocated list:  {0: 1, 1: 3, 8: 2, 11: 4, 19: 2, 21: 1, 22: 2, 24: 50, 74: 50, 4: 4, 124: 4, 131: 2, 10: 1, 133: 1, 138: 3, 15: 3, 141: 4, 145: 4, 134: 4, 18: 1, 149: 50, 128: 3, 199: 50}
+----------------------------------
+In handle_alloc_req(), Handling allocation request of size:  1
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 2, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 250, 'size': 6}] Current page's resulting allocated list:  {0: 1, 1: 3, 8: 2, 11: 4, 19: 2, 21: 1, 22: 2, 24: 50, 74: 50, 4: 4, 124: 4, 131: 2, 10: 1, 133: 1, 138: 3, 15: 3, 141: 4, 145: 4, 134: 4, 18: 1, 149: 50, 128: 3, 199: 50, 249: 1}
+----------------------------------
+In handle_alloc_req(), Handling allocation request of size:  2
+in _get_state()
+    Next state request contents - free_or_alloc: 0, mem_addr_or_amt: 22, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 252, 'size': 4}] Current page's resulting allocated list:  {0: 1, 1: 3, 8: 2, 11: 4, 19: 2, 21: 1, 22: 2, 24: 50, 74: 50, 4: 4, 124: 4, 131: 2, 10: 1, 133: 1, 138: 3, 15: 3, 141: 4, 145: 4, 134: 4, 18: 1, 149: 50, 128: 3, 199: 50, 249: 1, 250: 2}
+----------------------------------
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 2, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 22, 'size': 2}, {'idx': 252, 'size': 4}] Current page's resulting allocated list:  {0: 1, 1: 3, 8: 2, 11: 4, 19: 2, 21: 1, 24: 50, 74: 50, 4: 4, 124: 4, 131: 2, 10: 1, 133: 1, 138: 3, 15: 3, 141: 4, 145: 4, 134: 4, 18: 1, 149: 50, 128: 3, 199: 50, 249: 1, 250: 2}
+----------------------------------
+In handle_alloc_req(), Handling allocation request of size:  2
+in _get_state()
+    Next state request contents - free_or_alloc: 1, mem_addr_or_amt: 50, int(new_traj): 0)
+Current page's resulting free list:  [{'idx': 252, 'size': 4}] Current page's resulting allocated list:  {0: 1, 1: 3, 8: 2, 11: 4, 19: 2, 21: 1, 24: 50, 74: 50, 4: 4, 124: 4, 131: 2, 10: 1, 133: 1, 138: 3, 15: 3, 141: 4, 145: 4, 134: 4, 18: 1, 149: 50, 128: 3, 199: 50, 249: 1, 250: 2, 22: 2}
+----------------------------------
