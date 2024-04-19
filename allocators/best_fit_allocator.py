@@ -13,6 +13,7 @@ class BestFitAllocator(BaseAllocator): #pick the free block with the least amoun
         output:
             i, j: page index and block index within page
         """
+        
         best_fit_size = float('inf')
         best_fit_idxs = (-1, -1)
         for i, page in enumerate(pages):
@@ -23,5 +24,8 @@ class BestFitAllocator(BaseAllocator): #pick the free block with the least amoun
                     best_fit_size = block["size"]
                     best_fit_idxs = (i, block["idx"])
                     break
-
+        if best_fit_idxs[1] in pages[0].allocated_list:
+            print("alloc_size: ", alloc_size)
+            print(pages[0].allocated_list, pages[0].free_list)
+        assert best_fit_idxs[1] not in pages[0].allocated_list
         return best_fit_idxs[0], best_fit_idxs[1]

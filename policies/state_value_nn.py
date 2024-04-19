@@ -15,7 +15,7 @@ class NeuralNetwork(nn.Module):
             nn.Linear(32, 1),
         )
 
-        self.optimizer = torch.optim.Adam(self.linear_relu_stack.parameters(), lr=0.001, betas=(0.9,0.999))
+        self.optimizer = torch.optim.Adam(self.linear_relu_stack.parameters(), lr=0.01, betas=(0.9,0.999))
         self.loss_function = torch.nn.MSELoss()
 
     def forward(self, x):
@@ -40,8 +40,7 @@ class NNValueFn():
         self.model.train()
         self.model.optimizer.zero_grad()
         loss = self.model.loss_function(self.model(torch.tensor(s_tau, dtype=torch.float32))[0], torch.tensor(G, dtype=torch.float32))
-        print(self.model(torch.tensor(s_tau, dtype=torch.float32))[0], torch.tensor(G, dtype=torch.float32), loss.item())
-
+        #print(self.model(torch.tensor(s_tau, dtype=torch.float32))[0], torch.tensor(G, dtype=torch.float32), loss.item())
         loss.backward()
         self.model.optimizer.step()
 

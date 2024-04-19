@@ -22,6 +22,7 @@ class BaseRequestStreamDist(BaseRequestStream):
         self.allocated_indices = []
 
     def add_to_allocated_indices(self, index):
+        assert index not in self.allocated_indices, f"index {index} already"
         self.allocated_indices.append(index)
     
     def remove_from_allocated_indices(self, index):
@@ -37,11 +38,12 @@ class BaseRequestStreamDist(BaseRequestStream):
         #print("In get_next_req()")
         new_traj = False
         free_or_alloc = np.random.choice(np.array([0,1]), p=[self.free_prob, 1-self.free_prob])
-        #print("    free_or_alloc: ", free_or_alloc, "allocated_indices: ", self.allocated_indices)
+        
         if len(self.allocated_indices) <= 0:
             free_or_alloc = 1
         if free_or_alloc == 0:
             mem_addr_or_amt = np.random.choice(self.allocated_indices)
         else:
             mem_addr_or_amt = np.random.choice(self.alloc_sizes, p=self.alloc_probs)
+        #print("    free_or_alloc: ", free_or_alloc, "allocated_indices: ", self.allocated_indices, "mem_addr_or_amt: ", mem_addr_or_amt)
         return (free_or_alloc, mem_addr_or_amt, int(new_traj))

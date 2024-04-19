@@ -45,11 +45,14 @@ class BaseEnv():
         self.page = Page(page_size=self.page_size)
         first_rq = self.request_stream.get_next_req()
         self.prev_request = first_rq
+        self.freed_list = []
         return self._get_state(first_rq), False
         
 
     def step(self, action): #action = (free_or_alloc, mem_addr_or_amt)
         allocate = action[0]
+        # print("allocated indices rq stream: ", self.request_stream.allocated_indices)
+        # print("allocated indices page: ", self.page.allocated_list)
         if allocate == 1:
             allocation_success = self.page.allocate(action[1], self.prev_request[1])
             if not allocation_success:
@@ -58,6 +61,8 @@ class BaseEnv():
             else:
                 self.request_stream.add_to_allocated_indices(action[1])
         else:
+            self.freed_list.append(action[1])
+            #print("freed indicies", self.freed_list)
             self.page.free(action[1])
             self.request_stream.remove_from_allocated_indices(action[1])
 

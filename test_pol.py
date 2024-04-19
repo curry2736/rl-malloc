@@ -32,6 +32,7 @@ def semi_gradient_n_step_td(
 
     all_returns = []
     action_count_per_ep = []
+    losses_per_ep = []
     for ep in range(num_episode):
         cap_T = float('inf')
         tau = -1
@@ -39,10 +40,12 @@ def semi_gradient_n_step_td(
 
         rewards = []
         states = []
+        losses = []
         state,  done = env.reset()
         acc_r = 0.
         states.append(state['pages'][0])
         rewards.append(acc_r)
+        
         action_count = [0] * 3
         while tau < cap_T:
             if t < cap_T:
@@ -55,7 +58,6 @@ def semi_gradient_n_step_td(
                     action_count[action_idx] += 1
                     a = (a[0], a[1])
                     state, r, done,  = env.step(a)
-
                 states.append(state['pages'][0])
                 rewards.append(r)
                 if done:
@@ -71,24 +73,26 @@ def semi_gradient_n_step_td(
                     i += 1
                 if tau + n < cap_T:
                     G = G + (gamma ** (n)) * V(states[tau + n])
+                    if np.array_equal(states[tau + n].bitmap, states[tau].bitmap):
+                        print("EQUAL ARRAYS")
                 #print(f"episode {ep}: G = {G}")
-                V.update(alpha, G, states[tau])
+                losses.append(V.update(alpha, G, states[tau]))
                 #break
             t += 1
         print(f"episode {ep}: {sum(rewards)}")
         all_returns.append(sum(rewards))
         action_count_per_ep.append(action_count)
+        losses_per_ep.append(np.mean(losses))
 
     action_count_per_ep = np.array(action_count_per_ep)
     #plot returns for each episode
-    return all_returns, action_count_per_ep
-
+    return all_returns, action_count_per_ep, losses_per_ep
 
 gamma = 1.
-page_size = 1000
+page_size = 50
 num_episodes = 1000
-env = SingleStateEnv(page_size=page_size)
+env = SingleStateEnv(page_size=page_size, allocator="ff_bad")
 V = NNValueFn(page_size)
 policy = NNFitPolicy(V)
 
-all_returns, action_count_per_ep = semi_gradient_n_step_td(env,1.,policy,10,0.001,V,num_episodes)
+all_returns, action_count_per_ep, losses_per_ep = semi_gradient_n_step_td(env,1.,policy,1,0.001,V,num_episodes)

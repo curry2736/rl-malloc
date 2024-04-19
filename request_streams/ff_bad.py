@@ -12,30 +12,35 @@ class FFBad(AllocatorBadBase):
 
 
         trajectories = []
-        # initial_allocs = random.choice([1,2,3])
-        # trajectories = [(1, random.choice(small_alloc_sizes), 0)] * initial_allocs
         alloc = (1, self.big_alloc_size, 0)
         curr_allocated = self.big_alloc_size
-        print("sizes ",self.page_size, self.big_alloc_size)
-        while curr_allocated < self.page_size - self.big_alloc_size:
-            trajectories.append(alloc)
-            alloc = (1, random.choice(small_alloc_sizes), 0)
-            curr_allocated += alloc[1]
+        trajectories.append(alloc)
         
-        # trajectories.extend([(0, 0, 0), (1,1,0), (1, big_alloc_size, 0)])
-        self.traj_len = len(trajectories) + 3
+        while True:
+            current_free_space = self.page_size - curr_allocated
+            alloc = (1, random.choice(small_alloc_sizes), 0)
+            if current_free_space - alloc[1] < self.big_alloc_size:
+                break
+            curr_allocated += alloc[1]
+            trajectories.append(alloc)
+
+        
+        #print(self.page_size, curr_allocated, self.big_alloc_size) #it is possible the amount of free space is already less than the big alloc
+
+        #allocate enough to where the amount of free space is barely less than the big alloc
+        free_space = self.page_size - curr_allocated
+        final_alloc = (1, free_space - self.big_alloc_size +1, 0)
+        trajectories.append(final_alloc)
+        trajectories.extend([(0, 0, 0), (1,1,0), (1, self.big_alloc_size, 0)])
+        self.traj_len = len(trajectories) #+ 3
         self.initial_traj_len = len(trajectories)
         return trajectories
     
     def get_next_req(self):
         if self.ptr < self.traj_len:
-            print(self.ptr, self.allocated_indices, self.initial_traj_len)
-            if self.ptr >= self.initial_traj_len:
-                #free big (first) allocation, do a minimal allocation, then allocate big again
-                
-                self.traj.extend([(0, self.allocated_indices[0], 0), (1,1,0), (1, self.big_alloc_size, 0)])
 
             ret = self.traj[self.ptr]
             self.ptr+=1
             return ret
+        #print("Done with trajectory")
         return super().get_next_req()

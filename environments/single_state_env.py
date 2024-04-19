@@ -1,5 +1,6 @@
 from environments.base_env import BaseEnv
 import numpy as np
+from copy import deepcopy
 
 class SingleStateEnv(BaseEnv):
     def __init__(self, allocator="dist", invalid_action_reward=0, done_reward=0, trajs=None, page_size=256) -> None:
@@ -13,6 +14,6 @@ class SingleStateEnv(BaseEnv):
                         rq[1],  #mem_addr_or_amt
                         rq[2], #new_traj bool
                         ]),
-                "pages": [self.page]}
+                "pages": [deepcopy(self.page)]}
         return st
     

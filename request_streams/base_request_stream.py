@@ -1,7 +1,7 @@
 class BaseRequestStream:
     def __init__(self, allocation_request_stream_name: str):
         self.allocation_request_stream_name = allocation_request_stream_name
-        self.allocated_indexes = []
+        self.allocated_indices = []
 
     def __str__(self):
         return f"AllocationRequestStream: {self.allocation_request_stream_name}"

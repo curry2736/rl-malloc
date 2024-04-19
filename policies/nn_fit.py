@@ -16,10 +16,12 @@ class NNFitPolicy():
     def action(self, state: dict):
         page = state["pages"] 
         rq = state["rq"]
+        if rq[0] != 1:
+            print(rq[0])
         assert rq[0] == 1
         alloc_size = rq[1]
 
-        allocators = [BestFitAllocator(), WorstFitAllocator(), FirstFitAllocator()]
+        allocators = [FirstFitAllocator(), WorstFitAllocator(), BestFitAllocator()]
         afterstate_values = []
         possible_actions = []
 
@@ -28,6 +30,7 @@ class NNFitPolicy():
             for allocator in allocators:
                 page_copy = copy.deepcopy(page)
                 allocated_page, allocated_index = allocator.handle_alloc_req(page_copy, alloc_size)
+                #assert allocated_index not in page_copy[0].allocated_list
                 res = page_copy[0].allocate(allocated_index, alloc_size) #TODO: Remember this is only for single page env
                 assert res
                 #rint(page_copy[0])
@@ -35,6 +38,8 @@ class NNFitPolicy():
                 possible_actions.append(allocated_index)
             #print(afterstate_values)
 
-        
+        #turn afterstate_values into probability dist
+        #afterstate
+
         best_action_index = np.argmax(afterstate_values)
         return (1, possible_actions[best_action_index], best_action_index)
