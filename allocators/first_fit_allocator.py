@@ -19,5 +19,5 @@ class FirstFitAllocator(BaseAllocator):
             for j, block in enumerate(page.free_list):
                 if block["size"] >= alloc_size:
                     return i, block["idx"]
-        assert best_fit_size not in pages[0].allocated_list
-        return -1, -1
+        print("ASDJKLAKJSLDJKLDASJKL")
+        return (-1, -1)

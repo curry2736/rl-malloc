@@ -36,7 +36,10 @@ class NNFitPolicy():
                 #rint(page_copy[0])
                 afterstate_values.append(self.value_network(page_copy[0]))
                 possible_actions.append(allocated_index)
-            #print(afterstate_values)
+            #check if afterstate_values has more than 1 unique value
+            #print("possible_actions: ", possible_actions)
+            #if len(set(afterstate_values)) > 1:
+                #print("afterstate_values: ", afterstate_values)
 
         #turn afterstate_values into probability dist
         #afterstate

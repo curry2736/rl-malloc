@@ -46,6 +46,7 @@ class BaseEnv():
         first_rq = self.request_stream.get_next_req()
         self.prev_request = first_rq
         self.freed_list = []
+        self.has_freed = False
         return self._get_state(first_rq), False
         
 
@@ -69,8 +70,12 @@ class BaseEnv():
         next_rq = self.request_stream.get_next_req()
         state = self._get_state(next_rq)
         done = next_rq[2] or ( next_rq[0] and not self.page.space_available(next_rq[1]))
-        reward = self.done_reward if done else 1
+        reward = self.done_reward if (done) else 1 #if (done or not self.has_freed) else 1
         self.prev_request = next_rq
+        #print(reward, self.has_freed)
+        if allocate == 0:
+            self.has_freed = True
+
         return state, reward, done
 
     def close(self):
