@@ -3,6 +3,7 @@ from page import Page
 from request_streams.base_request_stream_traj import BaseRequestStreamTraj
 from request_streams.base_request_stream_dist import BaseRequestStreamDist
 from request_streams.ff_bad import FFBad
+from request_streams.wf_good import WFGood
 
 import numpy as np
 
@@ -28,6 +29,9 @@ class BaseEnv():
             self.request_stream_cls = BaseRequestStreamDist
         elif allocator == "ff_bad":
             self.request_stream_cls = FFBad
+            self.allocator_kwargs["page_size"] = self.page_size
+        elif allocator == "wf_good":
+            self.request_stream_cls = WFGood
             self.allocator_kwargs["page_size"] = self.page_size
         else:
             raise NotImplementedError()

@@ -13,7 +13,7 @@ class NNFitPolicy():
         self.value_network = value_network
     
 
-    def action(self, state: dict):
+    def action(self, state: dict, history=None):
         page = state["pages"] 
         rq = state["rq"]
         if rq[0] != 1:
@@ -21,7 +21,7 @@ class NNFitPolicy():
         assert rq[0] == 1
         alloc_size = rq[1]
 
-        allocators = [FirstFitAllocator(), WorstFitAllocator(), BestFitAllocator()]
+        allocators = [BestFitAllocator(), WorstFitAllocator(), FirstFitAllocator()]
         afterstate_values = []
         possible_actions = []
 
@@ -34,15 +34,23 @@ class NNFitPolicy():
                 res = page_copy[0].allocate(allocated_index, alloc_size) #TODO: Remember this is only for single page env
                 assert res
                 #rint(page_copy[0])
-                afterstate_values.append(self.value_network(page_copy[0]))
+                afterstate_values.append(self.value_network((page_copy[0], history)))
                 possible_actions.append(allocated_index)
             #check if afterstate_values has more than 1 unique value
             #print("possible_actions: ", possible_actions)
-            #if len(set(afterstate_values)) > 1:
-                #print("afterstate_values: ", afterstate_values)
+            # if len(set(afterstate_values)) > 1:
+            #     print("afterstate_values: ", afterstate_values)
 
-        #turn afterstate_values into probability dist
-        #afterstate
+        #apply softmax on afterstate_values
+        temperature = .1
+        afterstate_values = np.array(afterstate_values).reshape(-1,)
+        #print(afterstate_values)
+        afterstate_values = torch.tensor(afterstate_values, dtype=torch.float32)
+        afterstate_values = torch.nn.functional.softmax(afterstate_values / temperature, dim=0)
 
-        best_action_index = np.argmax(afterstate_values)
+        #pick from distribution
+        best_action_index = np.random.choice([0, 1, 2], p=afterstate_values.numpy())
+        if best_action_index == 2:
+            #print("best_action_index: ", best_action_index)
+            pass
         return (1, possible_actions[best_action_index], best_action_index)

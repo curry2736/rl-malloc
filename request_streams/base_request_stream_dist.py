@@ -13,7 +13,7 @@ class BaseRequestStreamDist(BaseRequestStream):
             free_prob (float): The probability of a free request.
         """
         
-        assert(sum(alloc_probs) == 1)
+        assert(np.isclose(sum(alloc_probs), 1)), f"sum of probabilities should be 1 but is {sum(alloc_probs)}"
 
         super().__init__(name)
         self.alloc_sizes = alloc_sizes
