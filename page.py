@@ -5,7 +5,7 @@ class Page():
     def __init__(self, page_size=256, block_size=1) -> None:
         self.page_size = page_size
         self.block_size = block_size
-        self.bitmap = np.zeros(page_size)
+        self.bitmap = np.zeros(page_size, dtype=np.uint8)
         self.free_list = [{"idx": 0, 
                            "size": page_size}
                         ]

@@ -5,12 +5,12 @@ from request_streams.base_request_stream_dist import BaseRequestStreamDist
 from request_streams.ff_bad import FFBad
 from request_streams.wf_good import WFGood
 
+
 import numpy as np
 
 class BaseEnv():
     def __init__(self, allocator="dist", invalid_action_reward=0, done_reward = 0, trajs=None, page_size=256) -> None:
         
-
         #do not assign them until reset is called!
         self.invalid_action_reward = invalid_action_reward
         self.done_reward = done_reward
@@ -19,7 +19,6 @@ class BaseEnv():
         self.prev_request = None
         self.trajs = trajs
         self.page_size = page_size
-
 
         self.allocator_kwargs = {}
         if allocator == "trajectory":
@@ -43,7 +42,7 @@ class BaseEnv():
     def _get_state(self, rq):
         NotImplementedError()
 
-    def reset(self):
+    def reset(self, seed=None):
         self.request_stream = self.request_stream_cls(**self.allocator_kwargs)
         #print("self.request_stream: ", self.request_stream)
         self.page = Page(page_size=self.page_size)
@@ -74,7 +73,7 @@ class BaseEnv():
         next_rq = self.request_stream.get_next_req()
         state = self._get_state(next_rq)
         done = next_rq[2] or ( next_rq[0] and not self.page.space_available(next_rq[1]))
-        reward = self.done_reward if (done) else 1 #if (done or not self.has_freed) else 1
+        reward = self.done_reward if (done) else .1 #if (done or not self.has_freed) else 1
         self.prev_request = next_rq
         #print(reward, self.has_freed)
         if allocate == 0:
