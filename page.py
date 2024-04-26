@@ -29,8 +29,8 @@ class Page():
         return False
 
     def free(self, address):
-        
-        assert address in self.allocated_list , f"Address {address} was never allocated!"
+        #print(self.allocated_list)
+        assert address in self.allocated_list , f"Address {address} was never allocated! {self.allocated_list}"
         amt_to_free = self.allocated_list[address]
         del self.allocated_list[address]
         assert np.all(self.bitmap[address:address + amt_to_free] == 1), "Bitmap and allocated list not consistent"
