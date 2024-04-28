@@ -15,14 +15,19 @@ class AllocatorBadBase(BaseRequestStreamDist):
     
     def get_next_req(self):
         if self.ptr < len(self.traj):
+            #print(self.traj[self.ptr])
             if self.traj[self.ptr][0] == "free":
+                #print("here", self.traj[self.ptr], self.allocated_indices)
                 free_ind = self.traj[self.ptr][1]
                 ret = (0, self.allocated_indices[free_ind], 0)
+            elif self.traj[self.ptr][0] == -1:
+                return (-1, -1, -1)
             else:
                 ret = self.traj[self.ptr]
             self.ptr+=1
             return ret
-        #print("Done with trajectory")
-        return super().get_next_req()
+        next_req = super().get_next_req()
+        #print(next_req)
+        return next_req
     
     
