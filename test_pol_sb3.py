@@ -21,7 +21,8 @@ policy_kwargs = cnn_policy_kwargs
 page_size=10
 env = StableBaselineEnv(allocator=allocator_name, page_size=page_size, high_level_actions=False)
 # model = PPO("MlpPolicy", env, verbose=1, learning_rate=0.001) #, policy_kwargs=cnn_policy_kwargs)
-model = PPO.load("PPO_MLP_100k", env=env, device="cuda")
+model_name = "PPO_MLP_500000"
+model = PPO.load(model_name, env=env, device="cuda")
 
 
 # model = DQN("CnnPolicy", env, policy_kwargs=policy_kwargs, verbose=1)
@@ -30,9 +31,9 @@ model = PPO.load("PPO_MLP_100k", env=env, device="cuda")
 #model attributes
 print(model.__dict__)
 
-timesteps=500000
-model.learn(total_timesteps=timesteps, log_interval=4, progress_bar=True)
-model.save(f"PPO_MLP_{timesteps}")
+#timesteps=500000
+#model.learn(total_timesteps=timesteps, log_interval=4, progress_bar=True)
+#model.save(f"PPO_MLP_{timesteps}")
 
 
 num_actions = page_size
@@ -44,7 +45,7 @@ curr_reward = 0
 action_counts = [0] * num_actions
 pbar = tqdm(total = 11)
 print("evaluation!")
-while i < 10:
+while i < 100:
     action, _states = model.predict(obs, deterministic=True)
     action_counts[action] += 1
     #print(action)
@@ -77,7 +78,7 @@ for allocator in tqdm(range(3)):
     i = 0
     rewards = []
     curr_reward = 0
-    while i < 10:
+    while i < 100:
         #action, _states = model.predict(obs, deterministic=True)
         #print(action)
         obs, reward, terminated, truncated, info = env.step(allocator)
@@ -99,9 +100,10 @@ print(conf_ints_baselines)
 conf_ints_baselines = np.array(conf_ints_baselines)
 
 # #create a bar graph with the confidence intervals
-# network_name = f'{policy_kwargs=}'.split('=')[0]
-# all_conf_ints = np.vstack((model_conf_int, conf_ints_baselines))
+network_name = f'{policy_kwargs=}'.split('=')[0]
+all_conf_ints = np.vstack((model_conf_int, conf_ints_baselines))
 
-# plt.bar(x=np.arange(4), height=all_conf_ints[:,2], yerr=all_conf_ints[:, 2] - all_conf_ints[:, 0])
-# plt.title(f"Average reward over 1000 episodes for \"{allocator_name}\" alloc sequences \n with 95% confidence intervals, using {network_name} network")
-# plt.xticks(np.arange(4), ["our policy", "best fit", "worst fit", "first fit"])
+plt.bar(x=np.arange(4), height=all_conf_ints[:,2], yerr=all_conf_ints[:, 2] - all_conf_ints[:, 0])
+plt.title(f"Average reward over 1000 episodes for {model_name} on \"{allocator_name}\" \n alloc sequences \n with 95% confidence intervals, using {network_name} network")
+plt.xticks(np.arange(4), ["our policy", "best fit", "worst fit", "first fit"])
+plt.savefig(f"results/{allocator_name}_{model_name}_cnn_100_episodes.png",  bbox_inches = "tight")
