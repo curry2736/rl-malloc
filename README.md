@@ -20,3 +20,5 @@ To run experiments 2 and 3 from the paper, open `test_pol_sb3.ipynb`.
 
 To get the ith graph of experiment j:
 1. Uncomment the 6 lines of code in the second cell which have the experiment i graph j commented above it.
+
+Run the full notebook to get each individual graph
