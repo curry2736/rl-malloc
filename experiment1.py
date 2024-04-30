@@ -42,13 +42,13 @@ curr_reward = 0
 action_counts = [0] * num_actions
 pbar = tqdm(total = 11)
 print("evaluation!")
-while i < 100:
+while i < 10000:
     action, _states = model.predict(obs, deterministic=True)
     action_counts[action] += 1
     obs, reward, terminated, truncated, info = env.step(action)
     curr_reward += reward
-    if terminated or truncated or curr_reward < -200:
-        if curr_reward < -200:
+    if terminated or truncated or curr_reward < -40:
+        if curr_reward < -40:
             print("failed run iteration ", i)
         pbar.update(1)
         obs, info = env.reset()
@@ -70,7 +70,7 @@ for allocator in tqdm(range(3)):
     i = 0
     rewards = []
     curr_reward = 0
-    while i < 100:
+    while i < 1000:
         
         obs, reward, terminated, truncated, info = env.step(allocator)
         if reward != .1 and reward != 0:
