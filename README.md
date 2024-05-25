@@ -1,5 +1,7 @@
 This repo contains the code for the paper "Reinforcement Learning for Dynamic Memory Allocation" - https://www.overleaf.com/read/grcgrdrwxhyy#45e67d
 
+Video Summary - https://www.youtube.com/watch?v=m7EsBf1J5Pc
+
 # Installation
 
 1. Clone the repository: git clone https://github.com/curry2736/rl-malloc.git
