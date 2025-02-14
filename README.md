@@ -1,4 +1,4 @@
-This repo contains the code for the paper "Reinforcement Learning for Dynamic Memory Allocation" - https://www.overleaf.com/read/grcgrdrwxhyy#45e67d
+This repo contains the code for the paper "Reinforcement Learning for Dynamic Memory Allocation" - https://arxiv.org/abs/2410.15492
 
 Video Summary - https://www.youtube.com/watch?v=m7EsBf1J5Pc
 
